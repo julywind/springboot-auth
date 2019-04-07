@@ -11,7 +11,7 @@ steps to use:
         <version>1.0</version>
     </dependency>
 ```
-2.add annotation AppAuthorize to SpringbootApp
+2.add annotation EnableJSecurity to SpringbootApp
 ```
     @SpringBootApplication
     @EnableJSecurity
@@ -22,7 +22,29 @@ steps to use:
     }
 ```
 3. add a class to implements interface AuthUser<T>, T is your user model,
-such as
+such as User
+```
+    public class User {
+        private String username;
+        private String password;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+```
 ```
     @Component
     public class Author implements AuthUser<User> {
