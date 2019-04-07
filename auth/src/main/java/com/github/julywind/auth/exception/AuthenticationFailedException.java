@@ -1,11 +1,8 @@
 package com.github.julywind.auth.exception;
 
-import lombok.Getter;
-import lombok.Setter;
+
 import org.springframework.http.HttpStatus;
 
-@Getter
-@Setter
 public class AuthenticationFailedException extends RuntimeException {
     private HttpStatus httpStatus;
     private Object responseData;
@@ -23,6 +20,22 @@ public class AuthenticationFailedException extends RuntimeException {
 
     public AuthenticationFailedException(HttpStatus httpStatus, Object responseData) {
         this.httpStatus = httpStatus;
+        this.responseData = responseData;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
+    public Object getResponseData() {
+        return responseData;
+    }
+
+    public void setResponseData(Object responseData) {
         this.responseData = responseData;
     }
 }

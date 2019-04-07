@@ -3,20 +3,17 @@ package com.github.julywind.auth.aop;
 import com.github.julywind.auth.anno.Authorized;
 import com.github.julywind.util.AnnotationUtil;
 import com.github.julywind.auth.anno.CurrentUser;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.lang.reflect.Method;
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class AuthMethod {
     private Authorized authorized;
     private CurrentUser currentUser;
     private Class currentUserType;
     private int paramIndex;
+
+    public AuthMethod() {
+    }
 
     public AuthMethod(Method method, Authorized typeAnnotation) {
         Authorized authorized = method.getAnnotation(Authorized.class);
@@ -47,5 +44,37 @@ public class AuthMethod {
             return clz.equals(this.currentUserType);
         }
         return false;
+    }
+
+    public Authorized getAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(Authorized authorized) {
+        this.authorized = authorized;
+    }
+
+    public CurrentUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(CurrentUser currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public Class getCurrentUserType() {
+        return currentUserType;
+    }
+
+    public void setCurrentUserType(Class currentUserType) {
+        this.currentUserType = currentUserType;
+    }
+
+    public int getParamIndex() {
+        return paramIndex;
+    }
+
+    public void setParamIndex(int paramIndex) {
+        this.paramIndex = paramIndex;
     }
 }

@@ -1,9 +1,10 @@
 package com.github.julywind.auth.aop;
 
 import com.github.julywind.auth.anno.Authorized;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.*;
 
-@Slf4j
 public abstract class AuthorizedCache implements ApplicationContextAware {
+    private final Logger log = LoggerFactory.getLogger(getClass().getSimpleName());
     /**
      * UnmodifiableMap 所有mapping的方法缓存，不可更改，启动后不提供刷新（没必要）
      */

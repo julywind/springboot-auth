@@ -2,11 +2,12 @@ package com.github.julywind.auth.aop;
 
 import com.github.julywind.auth.AuthUser;
 import com.github.julywind.auth.exception.AuthenticationFailedException;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -19,12 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 
-@Slf4j
 @Aspect
 @Repository
 public class AuthInterceptor extends AuthorizedCache {
     @Autowired
     private AuthUser authUser;
+
+    private final Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.PostMapping) ||" +
@@ -48,7 +50,7 @@ public class AuthInterceptor extends AuthorizedCache {
      */
     private Object checkAuthority(@NotNull AuthMethod authMethod, ProceedingJoinPoint pjp) throws Throwable {
         if (authUser == null) {
-            log.debug("Empty AuthFilter Entity");
+            logger.debug("Empty AuthFilter Entity");
             return pjp.proceed();
         }
         Object user = authUser.getUser(this.getRequest());
