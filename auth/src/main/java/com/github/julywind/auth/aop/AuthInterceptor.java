@@ -32,6 +32,7 @@ public class AuthInterceptor extends AuthorizedCache {
             "|| @within(org.springframework.web.bind.annotation.RestController)) && (" +
             "@annotation(org.springframework.web.bind.annotation.GetMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.PostMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.PatchMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.PutMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.DeleteMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.RequestMapping))")
