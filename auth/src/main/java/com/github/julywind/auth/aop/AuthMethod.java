@@ -1,6 +1,7 @@
 package com.github.julywind.auth.aop;
 
 import com.github.julywind.auth.anno.Authorized;
+import com.github.julywind.auth.anno.SkipAuthorize;
 import com.github.julywind.util.AnnotationUtil;
 import com.github.julywind.auth.anno.CurrentUser;
 
@@ -16,10 +17,15 @@ public class AuthMethod {
     }
 
     public AuthMethod(Method method, Authorized typeAnnotation) {
-        Authorized authorized = method.getAnnotation(Authorized.class);
-        if (authorized == null) {
-            authorized = typeAnnotation;
+        SkipAuthorize skipAuthorize = method.getAnnotation(SkipAuthorize.class);
+        Authorized authorized = null;
+        if(skipAuthorize==null){
+            authorized = method.getAnnotation(Authorized.class);
+            if (authorized == null) {
+                authorized = typeAnnotation;
+            }
         }
+
         this.authorized = authorized;
         AnnotationUtil.getAnnotationParam(method, CurrentUser.class,
                 (i, annotation) -> {
