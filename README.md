@@ -8,7 +8,7 @@ steps to use:
     <dependency>
         <groupId>com.github.julywind</groupId>
         <artifactId>springboot-auth</artifactId>
-        <version>1.0</version>
+        <version>1.0.2</version>
     </dependency>
 ```
 2.add annotation EnableJSecurity to SpringbootApp
@@ -81,6 +81,13 @@ param role,can be empty if no need.
     public class MyController {
         // you can get authorized user by param annotation CurrentUser
         @GetMapping("/")
+        public Object index(@CurrentUser User user){
+            return user;
+        }
+
+        // use this annotation to skip some api from controller with Authorized
+        @GetMapping("/")
+        @SkipAuthorize 
         public Object index(@CurrentUser User user){
             return user;
         }
